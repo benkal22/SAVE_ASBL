@@ -1,0 +1,20 @@
+{% for child in children %}
+<li class="relative group">
+    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"
+       class="text-[#102BFF] hover:text-[#F80401] transition duration-300 px-4 py-2 rounded-lg hover:bg-gray-100 {% if child.selected or child.ancestor %}text-[#06FC13] font-semibold{% endif %}">
+        {{ child.get_menu_title }}
+    </a>
+    {% if child.children %}
+    <ul class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg py-2 mt-2 space-y-2 min-w-[200px]">
+        {% for subchild in child.children %}
+        <li>
+            <a href="{{ subchild.attr.redirect_url|default:subchild.get_absolute_url }}"
+               class="block px-4 py-2 text-[#102BFF] hover:text-[#06FC13] hover:bg-gray-50 transition duration-300 {% if subchild.selected %}text-[#06FC13] font-semibold{% endif %}">
+                {{ subchild.get_menu_title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{% endfor %}

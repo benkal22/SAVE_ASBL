@@ -1,0 +1,76 @@
+.idea/
+.node_modules/
+
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.sqlite3
+db.sqlite3
+
+# Environnements virtuels
+.env
+.venv/
+venv/
+env/
+Pipfile
+Pipfile.lock
+
+# Configuration Django
+/settings_local.py
+
+# Logs et fichiers temporaires
+*.log
+*.pot
+*.mo
+*.swp
+*.swo
+*.swn
+*.pid
+*.seed
+*.bak
+*.old
+*.orig
+
+# Fichiers de compilation et caches
+*.pyc
+__pycache__/
+*.DS_Store
+*.tar.gz
+*.zip
+*.bak
+*.swp
+*.swo
+*.swn
+
+# Fichiers de base de données et migrations
+*.sqlite3
+db.sqlite3
+*.db
+*.db-journal
+*.sql
+
+# Django migrations
+**/migrations/*.py
+**/migrations/*.pyc
+!**/migrations/__init__.py
+
+# Fichiers statiques générés
+/staticfiles/
+**/staticfiles/
+**/static/
+
+# Tailwind CSS & npm
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# Tailwind CSS compilé
+**/static/css/tailwind.css
+**/static/css/tailwind.min.css
+**/static/css/*.map
+
+# Cache

@@ -1,0 +1,186 @@
+{# Replace this with your base template #}
+{% comment %} {% extends "bootstrap5/base.html" %} {% endcomment %}
+{% load sekizai_tags cms_tags menu_tags %}
+{% load djangocms_alias_tags %}
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% page_attribute "page_title" %}</title>
+    {% render_block "css" %}
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Flowbite -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+
+    <!-- Alpine JS -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body class="bg-green-50">
+    {% cms_toolbar %}
+    <!-- Navbar -->
+    <nav x-data="{ open: false, dropdownOpen: false }" class="bg-white/90 backdrop-blur-md shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="{% url 'pages-root' %}" class="flex items-center">
+                        <img src="{% static 'img/Logo_SAVE_ASBL.svg' %}" class="h-12" alt="SAVE ASBL Logo" />
+                    </a>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center space-x-12">
+                    <ul class="flex space-x-12">
+                        {% show_menu 0 100 100 100 "menu/menu.html" %} <!-- Intégration du menu dynamique avec template personnalisé -->
+                    </ul>
+                </div>
+
+                <!-- Bouton Contact -->
+                <div class="hidden md:flex items-center">
+                    <a href="#" class="px-8 py-3 bg-gradient-to-r from-[#102BFF] to-[#06FC13] text-white rounded-full hover:from-[#0a1fcc] hover:to-[#05d60f] transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        Contact
+                    </a>
+                </div>
+
+                <!-- Menu Mobile -->
+                <div class="flex items-center md:hidden">
+                    <button @click="open = !open" class="text-[#102BFF] hover:text-[#F80401] focus:outline-none transition duration-300">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div x-show="open" @click.away="open = false" class="md:hidden bg-white/95 backdrop-blur-md shadow-lg">
+            <div class="px-6 pt-4 pb-6 space-y-4">
+                <ul class="flex flex-col space-y-4">
+                    {% show_menu 0 100 100 100 "menu/menu_mobile.html" %} <!-- Intégration du menu dynamique pour mobile avec template personnalisé -->
+                </ul>
+                <a href="#" class="block w-full text-center px-6 py-3 bg-gradient-to-r from-[#102BFF] to-[#06FC13] text-white rounded-full hover:from-[#0a1fcc] hover:to-[#05d60f] transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    Contact
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="pt-24"> <!-- Ajout de pt-24 pour éviter que le contenu soit caché sous la navbar -->
+        {% block content %}
+        <!-- Carousel -->
+        <div class="w-full">
+            {% placeholder "hero" %}
+            {% placeholder "engagements" %}
+            {% placeholder "results" %}
+            {% placeholder "map" %}
+            {% placeholder "testimonials" %}
+            {% placeholder "cta_button" %}
+            {% placeholder "news" %}
+        </div>
+
+        <!-- Sections supplémentaires -->
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            {% placeholder "Feature" %}
+            {% placeholder "Splashbox" %}
+        </div>
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#102BFF] text-white py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Grille pour les sections -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Section 1 : Adresse -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Adresse</h3>
+                    <p class="text-sm mb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Avenue Kimpe, n° 9<br>
+                        Commune de Ngaliema<br>
+                        Kinshasa, RDC
+                    </p>
+                </div>
+
+                <!-- Section 2 : Rayon d'action -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Rayon d'action</h3>
+                    <p class="text-sm">
+                        Le SAVE ASBL exerce ses activités dans toute la République Démocratique du Congo et pourrait élargir ses activités à l'étranger.
+                    </p>
+                </div>
+
+                <!-- Section 3 : Buts et objectifs -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Buts et objectifs</h3>
+                    <ul class="text-sm list-disc list-inside">
+                        <li>Défendre et promouvoir la santé.</li>
+                        <li>Lutter contre la faim et l'analphabétisme.</li>
+                        <li>Émanciper la femme et épanouir la jeunesse.</li>
+                        <li>Promouvoir l'agriculture et l'éducation.</li>
+                    </ul>
+                </div>
+
+                <!-- Section 4 : Types de membres -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Types de membres</h3>
+                    <ul class="text-sm list-disc list-inside">
+                        <li>Membres fondateurs</li>
+                        <li>Membres effectifs</li>
+                        <li>Membres d'honneur</li>
+                        <li>Membres sympathisants</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ligne de séparation -->
+            <div class="border-t border-white/20 my-8"></div>
+
+            <!-- Section inférieure : Copyright et liens -->
+            <div class="text-center">
+                <p class="text-sm">
+                    &copy; 2023 SAVE ASBL. Tous droits réservés.
+                </p>
+                <div class="mt-4 flex justify-center space-x-6">
+                    <a href="#" class="text-white hover:text-[#FAE900] transition duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.56v14.91c0 .98-.81 1.78-1.79 1.78h-20.5c-.98 0-1.79-.8-1.79-1.78v-14.91c0-.98.81-1.78 1.79-1.78h20.5c.98 0 1.79.8 1.79 1.78zm-11.5 10.68l-5.75-3.83v7.66l5.75-3.83zm-1.25-8.68l-5.75 3.83 5.75 3.83v-7.66zm1.25 5.5l5.75-3.83-5.75-3.83v7.66z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-[#FAE900] transition duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.23 5.924c-.806.358-1.67.6-2.577.708a4.515 4.515 0 001.98-2.49 9.037 9.037 0 01-2.86 1.09 4.507 4.507 0 00-7.68 4.108 12.8 12.8 0 01-9.29-4.71 4.507 4.507 0 001.394 6.017 4.48 4.48 0 01-2.04-.563v.057a4.507 4.507 0 003.616 4.415 4.52 4.52 0 01-2.034.077 4.507 4.507 0 004.21 3.13 9.038 9.038 0 01-5.6 1.93c-.364 0-.724-.021-1.08-.063a12.78 12.78 0 006.92 2.03c8.3 0 12.84-6.88 12.84-12.84 0-.195-.004-.39-.013-.583a9.172 9.172 0 002.26-2.34z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-[#FAE900] transition duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% render_block "js" %}
+</body>
+</html>

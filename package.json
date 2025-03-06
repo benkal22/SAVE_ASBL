@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@tailwindcss/postcss7-compat": "^2.2.17",
+    "autoprefixer": "^10.4.20",
+    "flowbite": "^3.1.2",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0"
+  },
+  "scripts": {
+    "build:css": "postcss SAVE_ASBL/static/css/styles.css -o SAVE_ASBL/static/css/tailwind.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.0.9"
+  }
+}

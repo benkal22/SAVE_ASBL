@@ -1,0 +1,27 @@
+{% load sekizai_tags cms_tags menu_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    {% render_block "css" %}
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    {% show_menu 0 100 100 100 %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold">Welcome to SAVE_ASBL</h1>
+    </div>
+    {% render_block "js" %}
+</body>
+</html>
